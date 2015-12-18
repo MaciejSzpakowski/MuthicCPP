@@ -1,4 +1,5 @@
-#include "Game.h"
+#include "Game_Proto.h"
+#include "Path.h"
 
 namespace game
 {
@@ -6,12 +7,27 @@ namespace game
 	{
 	}
 
+	void GlobalEvents()
+	{
+		// fps event
+		EventManager->AddEvent([]
+		{
+			double fps = Core->GetFps();
+			Core->SetWindowTitle(std::to_wstring(fps).c_str());
+			return 1;
+		}, L"", 0, 0, 1);
+	}
+
+	void InitSingletons()
+	{
+		path = Path(L"");
+	}
+
 	void InitAndRun(std::vector<std::string> args)
 	{
 		Functions::InitCore(800, 600, Activity);
-
-		auto c1 = DrawManager->AddCircle(2, 10);
-		c1->Color = Color(1, 1, 1, 1);
+		GlobalEvents();
+		path = Path(L"");
 
 		Core->Run();
 		Core->Destroy();
