@@ -8,13 +8,21 @@ namespace game
 	{
 	private:
 		map<wstring, wstring> paths;
+		bool initialized;
+		static Path& Get()
+		{
+			static Path instance;
+			return instance;
+		}
+		Path() { initialized = false; }
 	public:
-		// ctor
-		Path(wstring _root);
+		Path(Path const&) = delete;
+		void operator=(Path const&) = delete;
+
+		// initializes Path singleton
+		static void Init(wstring _root);
 
 		// returns path to "file" in directory "dir"
-		wstring From(const wstring& dir, const wstring& file) const;
+		static wstring From(const wstring& dir, const wstring& file);		
 	};
-
-	extern Path path;
 }

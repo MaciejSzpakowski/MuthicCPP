@@ -1,5 +1,6 @@
 #include "Game_Proto.h"
 #include "Path.h"
+#include "Conf.h"
 
 namespace game
 {
@@ -20,14 +21,15 @@ namespace game
 
 	void InitSingletons()
 	{
-		path = Path(L"");
+		ConfigFile::Init(L"config.txt");
+		Path::Init(ConfigFile::GetConfig().root);
 	}
 
 	void InitAndRun(std::vector<std::string> args)
 	{
-		Functions::InitCore(800, 600, Activity);
+		dx2d::Functions::InitCore(800, 600, Activity);
 		GlobalEvents();
-		path = Path(L"");
+		InitSingletons();
 
 		Core->Run();
 		Core->Destroy();

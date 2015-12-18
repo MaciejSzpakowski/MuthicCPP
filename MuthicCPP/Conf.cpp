@@ -2,7 +2,7 @@
 
 namespace game
 {
-	ConfigFile::ConfigFile(const wstring& filepath)
+	void ConfigFile::Init(const wstring& filepath)
 	{
 		std::wifstream file(filepath);
 		wstring line;
@@ -13,18 +13,18 @@ namespace game
 		{
 			if (line.substr(0, 4) == L"root") // if line starts with "root"
 			{
-				r = std::wregex(L"\"(.)*\""); // find something between ""
-				if (std::regex_match(line, match, r)) // if found
+				r = std::wregex(L"\"([^\"]*)\""); // find something between ""
+				if (std::regex_search(line, match, r)) // if found
 				{
-					config.root = match[0]; // store it as root
-					config.root = config.root.substr(1, config.root.length() - 2); // remove ""
+					Get().config.root = match[0]; // store it as root
+					Get().config.root = Get().config.root.substr(1, Get().config.root.length() - 2); // remove ""
 				}
 			}
 		}
 	}
 
-	Config ConfigFile::GetConfig() const
+	Config ConfigFile::GetConfig()
 	{
-		return config;
+		return Get().config;
 	}
 }

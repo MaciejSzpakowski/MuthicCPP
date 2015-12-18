@@ -16,11 +16,22 @@ namespace game
 	{
 	private:
 		Config config;
+		bool initialized;
+		ConfigFile() { initialized = false; }
+
+		static ConfigFile& Get()
+		{
+			static ConfigFile instance;
+			return instance;
+		}
 	public:
-		ConfigFile(const wstring& filepath);
+		ConfigFile(ConfigFile const&) = delete;
+		void operator=(ConfigFile const&) = delete;
 
-		Config GetConfig() const;
+		// initializes ConfigFile singleton
+		static void Init(const wstring& filepath);
+
+		// gets a copy of Config
+		static Config GetConfig();
 	};
-
-	extern ConfigFile configFile;
 }

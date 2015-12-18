@@ -9,26 +9,31 @@ namespace game
 		return std::regex_replace(path, r, L"/");
 	}
 
-	Path::Path(wstring _root)
+	void Path::Init(wstring _root)
 	{
-		paths[L"root"] = _root;
-		paths[L"data"] = makePath(paths[L"root"],L"data");
-		paths[L"save"] = makePath(paths[L"root"],L"save");
-		paths[L"hero"] = makePath(paths[L"data"],L"hero");
-		paths[L"mob"] = makePath(paths[L"data"],L"mob");
-		paths[L"font"] = makePath(paths[L"data"],L"font");
-		paths[L"map"] = makePath(paths[L"data"],L"map");
-		paths[L"misc"] = makePath(paths[L"data"],L"misc");
-		paths[L"item"] = makePath(paths[L"data"],L"item");
-		paths[L"effect"] = makePath(paths[L"data"],L"effect");
+		Get().initialized = true;
+
+		Get().paths[L"root"] = _root;
+		Get().paths[L"data"] = makePath(Get().paths[L"root"],L"data");
+		Get().paths[L"save"] = makePath(Get().paths[L"root"],L"save");
+		Get().paths[L"hero"] = makePath(Get().paths[L"data"],L"hero");
+		Get().paths[L"mob"] = makePath(Get().paths[L"data"],L"mob");
+		Get().paths[L"font"] = makePath(Get().paths[L"data"],L"font");
+		Get().paths[L"map"] = makePath(Get().paths[L"data"],L"map");
+		Get().paths[L"misc"] = makePath(Get().paths[L"data"],L"misc");
+		Get().paths[L"item"] = makePath(Get().paths[L"data"],L"item");
+		Get().paths[L"effect"] = makePath(Get().paths[L"data"],L"effect");
 	}
 
-	wstring Path::From(const wstring& dir, const wstring& file) const
+	wstring Path::From(const wstring& dir, const wstring& file)
 	{
-		auto p = paths.find(dir);
+		if (!Get().initialized)
+			throw std::runtime_error("Path::From()\nPath is not initialized");
 
-		if (p == paths.end())
-			throw std::runtime_error("Path::from()\nDirectory not found in paths");
+		auto p = Get().paths.find(dir);
+
+		if (p == Get().paths.end())
+			throw std::runtime_error("Path::From()\nDirectory not found in paths");
 
 		return p->second + file;
 	}
