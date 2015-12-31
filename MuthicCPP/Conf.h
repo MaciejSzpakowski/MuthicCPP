@@ -3,22 +3,26 @@
 #include <iostream>
 #include <fstream>
 #include <regex>
+#include <map>
+#include <stdexcept>
+#include "Utils.h"
 
 namespace game
 {
 	using std::wstring;
-
-	struct Config
-	{
-		wstring root;
-	};
+	using std::map;
 
 	class ConfigFile
 	{
 	private:
-		Config config;
+		map<wstring,wstring> config;
 		bool initialized;
 		ConfigFile() { initialized = false; }
+
+		void Add(const wstring& key, const wstring& value)
+		{ 
+			config[key] = value;
+		}
 
 		static ConfigFile& Get()
 		{
@@ -33,6 +37,6 @@ namespace game
 		static void Init(const wstring& filepath);
 
 		// gets a copy of Config
-		static Config GetConfig();
+		static wstring GetConfig(wstring name);
 	};
 }

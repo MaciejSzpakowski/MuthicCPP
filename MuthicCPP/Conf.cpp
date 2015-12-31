@@ -11,20 +11,25 @@ namespace game
 
 		while (std::getline(file, line)) // read line by line
 		{
-			if (line.substr(0, 4) == L"root") // if line starts with "root"
-			{
-				r = std::wregex(L"\"([^\"]*)\""); // find something between ""
-				if (std::regex_search(line, match, r)) // if found
-				{
-					Get().config.root = match[0]; // store it as root
-					Get().config.root = Get().config.root.substr(1, Get().config.root.length() - 2); // remove ""
-				}
-			}
+			auto e = line.find(L'=', 0);
+
+			if (e != wstring::npos)
+				Get().Add(utils::Trim(wstring(line.begin(), line.begin() + e)), utils::Trim(wstring(line.begin() + e + 1, line.end())));
 		}
 	}
 
-	Config ConfigFile::GetConfig()
+	wstring ConfigFile::GetConfig(wstring name)
 	{
-		return Get().config;
+		std::string msg;
+
+		auto it = Get().config.find(name);
+		if (it == Get().config.end())
+		{
+			msg = "Config not found: ";
+			msg += std::string(name.begin(), name.end());
+			throw std::runtime_error("Config not found");
+		}
+
+		return it->second;
 	}
 }

@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Path.h"
 #include "Conf.h"
 
 namespace game
@@ -23,7 +22,7 @@ namespace game
 	void InitSingletons()
 	{
 		ConfigFile::Init(L"config.txt");
-		Path::Init(ConfigFile::GetConfig().root);
+		Path::Init(ConfigFile::GetConfig(L"root"));
 	}
 
 	void InitAndRun(std::vector<std::string> args)
