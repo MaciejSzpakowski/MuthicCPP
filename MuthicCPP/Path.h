@@ -1,9 +1,13 @@
 #pragma once
-#include "Game_Proto.h"
 #include <regex>
+#include <map>
+#include <string>
 
 namespace game
 {
+	using std::map;
+	using std::wstring;
+
 	class Path
 	{
 	private:

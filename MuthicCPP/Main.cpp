@@ -1,4 +1,4 @@
-#include "Game_Proto.h"
+#include "Game.h"
 
 namespace game
 {

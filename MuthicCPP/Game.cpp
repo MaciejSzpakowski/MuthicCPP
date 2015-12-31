@@ -1,4 +1,4 @@
-#include "Game_Proto.h"
+#include "Game.h"
 #include "Path.h"
 #include "Conf.h"
 
@@ -6,6 +6,7 @@ namespace game
 {
 	void Activity()
 	{
+		Sleep(1);
 	}
 
 	void GlobalEvents()
@@ -27,7 +28,7 @@ namespace game
 
 	void InitAndRun(std::vector<std::string> args)
 	{
-		dx2d::Functions::InitCore(800, 600, Activity);
+		Viva::Functions::InitViva(Size(800, 600), Activity);
 		GlobalEvents();
 		InitSingletons();
 
