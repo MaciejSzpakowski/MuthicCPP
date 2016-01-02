@@ -4,6 +4,10 @@
 
 namespace game
 {
+	struct KeyBindings
+	{
+	};
+
 	class Player
 	{
 	private:
@@ -11,6 +15,7 @@ namespace game
 		HeroClass heroClass;
 		Event* activityEvent;
 		float walkSpeed;
+
 	public:
 		Player(const wstring& name, HeroClass _heroClass, const GlobalAssets& g);
 

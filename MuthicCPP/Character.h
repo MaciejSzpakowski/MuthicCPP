@@ -13,7 +13,7 @@ namespace game
 		Animation* sprite;
 		wstring name;
 		BitmapText* label;
-		float moveSpeed;
+		XMVECTOR moveSpeed;
 	public:
 		Character(float radius, const wchar_t* filename, const wstring& _name, const GlobalAssets& g);
 		virtual void AnimationControl() = 0;
@@ -24,7 +24,7 @@ namespace game
 		Circle* GetCollider() const { return collider; }
 		void SetTarget(const XMFLOAT3& v) { target = DirectX::XMVectorSet(v.x, v.y, v.z, 0); }
 		Animation* GetSprite() const { return sprite; }
-		void SetMoveSpeed(float s) { moveSpeed = s; }
+		void SetMoveSpeed(float s) { moveSpeed = DirectX::XMVectorSet(s,s,s,s); }
 
 		~Character();
 	};
