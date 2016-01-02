@@ -144,19 +144,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Conf.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Path.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Conf.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Path.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Proto.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

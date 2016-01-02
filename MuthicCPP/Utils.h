@@ -1,12 +1,16 @@
 #pragma once
-#include <string>
+
+#include "Proto.h"
 
 namespace game
 {
-	using std::wstring;
+	using namespace Viva;
 
 	namespace utils
 	{
+		// Remove all white spaces from front and back.
 		wstring Trim(const wstring& str);
+
+		void GetFontUv(vector<RECT>& uv);
 	}
 }

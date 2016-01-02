@@ -2,6 +2,8 @@
 
 #include "viva/Viva.h"
 #include "winsock/winsock.h"
+#include <memory>
+#include <stdexcept>
 
 #ifdef _DEBUG
 #pragma comment(lib, "viva/dx2d.lib")
@@ -13,5 +15,5 @@
 #endif
 
 using namespace Viva;
-
-#include "Path.h"
+using std::unique_ptr;
+using std::runtime_error;

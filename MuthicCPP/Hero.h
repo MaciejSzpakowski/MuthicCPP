@@ -1,20 +1,24 @@
 #pragma once
 
-#include "Game.h"
+#include "Character.h"
 
 namespace game
 {
-	class Hero
+	enum class HeroClass : int { Elf=1, Wizard=2, Knight=3 };
+
+	class Hero : public Character
 	{
 	private:
-		Circle* collider;
-		Sprite* sprite;
-		wstring name;
+		Event* activityEvent;
 	public:
-		Hero(const wstring& name, RenderTarget* world);
+		Hero(const wstring& name, const wchar_t* filename, const GlobalAssets& g);
 
 		void Activity();
+		void AnimationControl() override;
 
-		void Destroy();
+		// translates heroclass to sprite name: e.g. HeroClass::Elf -> /data/hero/elf.png
+		static wstring GetSpriteName(HeroClass c);
+
+		~Hero();
 	};
 }
