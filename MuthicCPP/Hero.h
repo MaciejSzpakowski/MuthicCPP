@@ -4,11 +4,12 @@
 
 namespace game
 {
-	enum class HeroClass : int { Elf=1, Wizard=2, Knight=3 };
+	enum class HeroClass : int { Invalid=0, Elf=1, Wizard=2, Knight=3 };
 
 	class Hero : public Character
 	{
 	private:
+		float aniWalkSpeed;
 		Event* activityEvent;
 	public:
 		Hero(const wstring& name, const wchar_t* filename, const GlobalAssets& g);

@@ -6,11 +6,16 @@ namespace game
 {
 	struct KeyBindings
 	{
+		Keys left;
+		Keys right;
+		Keys up;
+		Keys down;
 	};
 
 	class Player
 	{
 	private:
+		KeyBindings bindings;
 		std::unique_ptr<Hero> hero;
 		HeroClass heroClass;
 		Event* activityEvent;
@@ -20,7 +25,11 @@ namespace game
 		Player(const wstring& name, HeroClass _heroClass, const GlobalAssets& g);
 
 		// save player to file
-		void Serialize(const wchar_t* filename);
+		void Serialize();
+
+		static Player* Deserialize(const wchar_t* filename, const GlobalAssets& g);
+
+		Hero* GetHero() const { return hero.get(); }
 
 		void Activity();
 		void Control();

@@ -4,6 +4,7 @@
 #include "winsock/winsock.h"
 #include <memory>
 #include <stdexcept>
+#include <fstream>
 
 #ifdef _DEBUG
 #pragma comment(lib, "viva/dx2d.lib")

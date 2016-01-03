@@ -4,8 +4,10 @@
 namespace game
 {
 	Hero::Hero(const wstring& name, const wchar_t* filename, const GlobalAssets& g)
-		:Character(1.5f, filename, name, g)
+		:Character(1.1f, filename, name, g)
 	{
+		aniWalkSpeed = 10;
+
 		sprite->SetPixelScale(Size(32, 32));
 		sprite->SetSize(4);
 
@@ -24,6 +26,25 @@ namespace game
 
 	void Hero::AnimationControl()
 	{
+		XMFLOAT3 v = collider->GetVelocity();
+
+		if (v.x == 0 && v.y == 0) // standing
+		{
+			sprite->SetSpeed(0);
+			sprite->SetCurrentFrame(1);
+		}
+		else                  // walking
+		{
+			sprite->SetBegin(0);
+			sprite->SetEnd(1);
+			sprite->SetSpeed(aniWalkSpeed);
+		}
+
+		if (v.x > 0)
+			sprite->SetFlipHorizontally(true);
+		else if(v.x < 0)
+			sprite->SetFlipHorizontally(false);
+
 	}
 
 	wstring Hero::GetSpriteName(HeroClass c)

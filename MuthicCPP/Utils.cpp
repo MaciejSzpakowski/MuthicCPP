@@ -119,5 +119,51 @@ namespace game
 			uv.push_back({ 533,0,536,10 });
 			uv.push_back({ 536,0,541,10 });
 		}
+
+		void WriteBinary(std::ofstream& file, int* value)
+		{
+			file.write((const char*)value, 4);
+		}
+		void WriteBinary(std::ofstream& file, float* value)
+		{
+			file.write((const char*)value, 4);
+		}
+		void WriteBinary(std::ofstream& file, double* value)
+		{
+			file.write((const char*)value, 8);
+		}
+		void WriteBinary(std::ofstream& file, const wstring& value)
+		{
+			for (int i = 0; i < value.length() + 1; i++)
+				file.write((const char*)value.data() + i*2, 1);
+		}
+
+		void ReadBinary(std::ifstream& file, int* value)
+		{
+			file.read((char*)value, 4);
+		}
+
+		void ReadBinary(std::ifstream& file, float* value)
+		{
+			file.read((char*)value, 4);
+		}
+
+		void ReadBinary(std::ifstream& file, double* value)
+		{
+			file.read((char*)value, 8);
+		}
+
+		void ReadBinary(std::ifstream& file, wstring* value)
+		{
+			int c = 0;
+			while (true)
+			{
+				file.read((char*)(&c), 1);
+				if (c == 0)
+					return;
+				else
+					value->push_back(c);
+			}
+		}
 	}
 }

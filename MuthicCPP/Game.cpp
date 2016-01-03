@@ -51,7 +51,9 @@ namespace game
 		InitSingletons();
 		InitGlobals(g);
 
-		player = std::unique_ptr<Player>(new Player(L"Poteflon", HeroClass::Elf, g));
+		//player = std::unique_ptr<Player>(new Player(L"Poteflon", HeroClass::Elf, g));
+		//player->Serialize();
+		player = std::unique_ptr<Player>(Player::Deserialize(Path::From(L"save", L"Poteflon.hero").c_str(), g));
 
 		Core->Run();
 	}
