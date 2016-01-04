@@ -5,6 +5,7 @@
 #include <memory>
 #include <stdexcept>
 #include <fstream>
+#include <map>
 
 #ifdef _DEBUG
 #pragma comment(lib, "viva/dx2d.lib")
@@ -18,3 +19,4 @@
 using namespace Viva;
 using std::unique_ptr;
 using std::runtime_error;
+using std::map;

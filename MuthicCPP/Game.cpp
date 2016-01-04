@@ -2,6 +2,7 @@
 #include "Path.h"
 #include "Utils.h"
 #include "Player.h"
+#include "Server.h"
 
 namespace game
 {
@@ -41,19 +42,23 @@ namespace game
 		g.world = DrawManager->AddRenderTarget();
 	}
 
+	Server* StartServer()
+	{
+	}
+
 	void InitAndRun(std::vector<std::string> args)
 	{
 		GlobalAssets g;
-		std::unique_ptr<Player> player;
+		unique_ptr<Player> player;
+		unique_ptr<Server> server;
 		
 		Core->OpenConsole();
 		GlobalEvents();
 		InitSingletons();
 		InitGlobals(g);
 
-		//player = std::unique_ptr<Player>(new Player(L"Poteflon", HeroClass::Elf, g));
-		//player->Serialize();
-		player = std::unique_ptr<Player>(Player::Deserialize(Path::From(L"save", L"Poteflon.hero").c_str(), g));
+		player = unique_ptr<Player>(Player::Deserialize(Path::From(L"save", L"Poteflon.hero").c_str(), g));
+		server = unique_ptr<Server>(StartServer());
 
 		Core->Run();
 	}

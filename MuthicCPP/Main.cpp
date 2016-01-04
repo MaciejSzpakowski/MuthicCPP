@@ -1,5 +1,4 @@
 #include "Proto.h"
-#include <stdexcept>
 
 namespace game
 {

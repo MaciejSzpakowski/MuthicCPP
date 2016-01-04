@@ -11,6 +11,7 @@ namespace game
 	private:
 		float aniWalkSpeed;
 		Event* activityEvent;
+		long long netid;
 	public:
 		Hero(const wstring& name, const wchar_t* filename, const GlobalAssets& g);
 

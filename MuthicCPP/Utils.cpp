@@ -21,6 +21,12 @@ namespace game
 			return rtrim(str, 0, (int)str.length() - 1);
 		}
 
+		long long GetUniqueId()
+		{
+			static long long id = 1;
+			return id++;
+		}
+
 		void GetFontUv(vector<RECT>& uv)
 		{
 			uv.push_back({ 0,0,5,10 });

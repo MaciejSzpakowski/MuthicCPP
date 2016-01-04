@@ -13,6 +13,8 @@ namespace game
 
 		void GetFontUv(vector<RECT>& uv);
 
+		long long GetUniqueId();
+
 		void WriteBinary(std::ofstream& file, int* value);
 		void WriteBinary(std::ofstream& file, float* value);
 		void WriteBinary(std::ofstream& file, double* value);
