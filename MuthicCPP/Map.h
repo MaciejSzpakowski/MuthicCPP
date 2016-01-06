@@ -8,9 +8,4 @@ namespace game
 	{
 		Lorencia = 1
 	};
-
-	namespace map
-	{
-		void InitMap();
-	}
 }

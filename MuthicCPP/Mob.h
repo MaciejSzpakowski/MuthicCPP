@@ -7,7 +7,7 @@ namespace game
 	struct MapElem
 	{
 		wstring name;
-		wstring file;
+		wstring filename;
 	};
 
 	enum class MobClass : int
@@ -18,6 +18,7 @@ namespace game
 	class Mob : public Character
 	{
 	private:
+		Event* activityEvent;
 		MobClass mobClass;
 		long long netid;
 		float aniWalkSpeed;
@@ -26,6 +27,10 @@ namespace game
 
 		static MapElem MapClass2Elem(MobClass c);
 
+		void Activity();
+
 		void AnimationControl() override;
+
+		~Mob();
 	};
 }

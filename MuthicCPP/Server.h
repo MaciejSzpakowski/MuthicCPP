@@ -2,6 +2,7 @@
 
 #include "Mob.h"
 #include "Hero.h"
+#include "Map.h"
 
 namespace game
 {
@@ -14,7 +15,8 @@ namespace game
 	class Server
 	{
 	private:
-		vector<Room> rooms;
+		map<MapType, Room> rooms;
 	public:
+		Server(const GlobalAssets& g);
 	};
 }

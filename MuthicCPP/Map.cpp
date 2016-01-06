@@ -2,10 +2,4 @@
 
 namespace game
 {
-	namespace map
-	{
-		void InitMap()
-		{
-		}
-	}
 }

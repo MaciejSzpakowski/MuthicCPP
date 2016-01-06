@@ -4,14 +4,25 @@
 namespace game
 {
 	Mob::Mob(MobClass c, const GlobalAssets& g)
-		:Character(1.0f,MapClass2Elem(c).file.c_str(), MapClass2Elem(c).name,g)
+		:Character(1.0f,MapClass2Elem(c).filename.c_str(), MapClass2Elem(c).name,g)
 	{
 		aniWalkSpeed = 6;
+
+		activityEvent = EventManager->AddEvent([=]
+		{
+			Activity();
+			return 1;
+		}, name + wstring(L"heroActivity"), 0, 0, 0);
 	}
 
 	void InitMap(map<MobClass, MapElem>& mapping)
 	{
 		mapping[MobClass::BudgeDragon] = { L"Budge Dragon",Path::From(L"mob",L"budge_dragon.png") };
+	}
+
+	void Mob::Activity()
+	{
+		AnimationControl();
 	}
 
 	MapElem Mob::MapClass2Elem(MobClass c)
@@ -44,5 +55,10 @@ namespace game
 			sprite->SetFlipHorizontally(true);
 		else if (v.x < 0)
 			sprite->SetFlipHorizontally(false);
+	}
+
+	Mob::~Mob()
+	{
+		EventManager->RemoveEvent(activityEvent);
 	}
 }

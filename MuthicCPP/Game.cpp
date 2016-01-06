@@ -42,8 +42,9 @@ namespace game
 		g.world = DrawManager->AddRenderTarget();
 	}
 
-	Server* StartServer()
+	Server* StartServer(const GlobalAssets& g)
 	{
+		return new Server(g);
 	}
 
 	void InitAndRun(std::vector<std::string> args)
@@ -58,7 +59,7 @@ namespace game
 		InitGlobals(g);
 
 		player = unique_ptr<Player>(Player::Deserialize(Path::From(L"save", L"Poteflon.hero").c_str(), g));
-		server = unique_ptr<Server>(StartServer());
+		server = unique_ptr<Server>(StartServer(g));
 
 		Core->Run();
 	}
