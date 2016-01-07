@@ -6,6 +6,11 @@ using namespace Viva;
 
 namespace game
 {
+	enum class GameType
+	{
+		Server, Client
+	};
+
 	struct GlobalAssets
 	{
 		RenderTarget* world;
@@ -13,5 +18,8 @@ namespace game
 		BitmapFont* fontBold;
 		FontMetrics fm;
 		wstring playerFile;
-	};
+		GameType gameType;
+		unsigned short port;
+		std::string ip;
+	};	
 }

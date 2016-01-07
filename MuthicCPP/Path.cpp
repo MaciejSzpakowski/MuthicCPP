@@ -11,6 +11,10 @@ namespace game
 
 	void Path::Init(wstring _root)
 	{
+		for (int i = _root.size() - 1; i >= 0; i--)
+			if (_root[i] == L'\"')
+				_root.erase(_root.begin() + i);
+
 		Get().initialized = true;
 
 		Get().paths[L"root"] = _root;

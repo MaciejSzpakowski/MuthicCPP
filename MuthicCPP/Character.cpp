@@ -24,10 +24,18 @@ namespace game
 
 	void Character::Move()
 	{
-		auto v = DirectX::XMVectorSubtract(target,collider->_GetPositionVector());
-		v = DirectX::XMVector4Normalize(v);
-		v = DirectX::XMVectorMultiply(v, moveSpeed);
-		collider->SetVelocity(v);
+		auto diff = DirectX::XMVectorSubtract(target,collider->_GetPositionVector());
+		auto vlensq = DirectX::XMVector2LengthSq(diff);
+		float lensq;
+		DirectX::XMStoreFloat(&lensq, vlensq);
+		if (lensq > 0.001f)
+		{
+			diff = DirectX::XMVector4Normalize(diff);
+			diff = DirectX::XMVectorMultiply(diff, moveSpeed);
+			collider->SetVelocity(diff);
+		}
+		else
+			collider->SetVelocity(0,0,0);
 	}
 
 	Character::~Character()

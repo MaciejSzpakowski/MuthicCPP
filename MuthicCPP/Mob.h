@@ -15,22 +15,32 @@ namespace game
 		BudgeDragon = 1
 	};
 
+	enum class MobState : int
+	{
+		Roaming = 1,
+		Chasing = 2,
+		Attacking = 3
+	};
+
 	class Mob : public Character
 	{
 	private:
+		MobState state;
 		Event* activityEvent;
+		Event* pickNextTargetEvent;
 		MobClass mobClass;
 		long long netid;
 		float aniWalkSpeed;
+
+		void Behaviour();
+		void AnimationControl() override;
+		void Activity();
+		void PickNextTarget();
 	public:
 		Mob(MobClass c, const GlobalAssets& g);
 
 		static MapElem MapClass2Elem(MobClass c);
-
-		void Activity();
-
-		void AnimationControl() override;
-
+		
 		~Mob();
 	};
 }

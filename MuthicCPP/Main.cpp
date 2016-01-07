@@ -26,6 +26,10 @@ int main(int argc, char** argv)
 		s += v.what();
 		MessageBoxA(0, s.c_str(), "Error", MB_ICONEXCLAMATION);
 	}
+	catch (winsock::socket_error err)
+	{
+		MessageBoxA(0, err.what(), "Error", MB_ICONEXCLAMATION);
+	}
 	catch (std::runtime_error r)
 	{
 		MessageBoxA(0,r.what(), "Error", MB_ICONEXCLAMATION);

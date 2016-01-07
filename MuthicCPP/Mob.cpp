@@ -7,12 +7,24 @@ namespace game
 		:Character(1.0f,MapClass2Elem(c).filename.c_str(), MapClass2Elem(c).name,g)
 	{
 		aniWalkSpeed = 6;
+		moveSpeed = DirectX::XMVectorSet(5, 5, 5, 5);
+		state = MobState::Roaming;
+		sprite->SetPixelScale(Size(32, 32));
+		sprite->SetSize(3);
 
 		activityEvent = EventManager->AddEvent([=]
 		{
+			if (g.gameType == GameType::Server)
+				Behaviour();
 			Activity();
 			return 1;
-		}, name + wstring(L"heroActivity"), 0, 0, 0);
+		}, name + wstring(L"mobActivity"), 0, 0, 0);
+
+		pickNextTargetEvent = EventManager->AddEvent([=]
+		{
+			PickNextTarget();
+			return 0;
+		}, name + wstring(L"pickNextTarget"), Random::RndDouble() * 2 + 2, 0, 0);
 	}
 
 	void InitMap(map<MobClass, MapElem>& mapping)
@@ -20,8 +32,26 @@ namespace game
 		mapping[MobClass::BudgeDragon] = { L"Budge Dragon",Path::From(L"mob",L"budge_dragon.png") };
 	}
 
+	void Mob::PickNextTarget()
+	{
+		if (state == MobState::Roaming)
+		{
+			auto pos = collider->_GetPositionVector();
+			auto offset = DirectX::XMVectorSet((float)Random::RndDouble() * 16 - 8, 
+				                               (float)Random::RndDouble() * 16 - 8, 0, 1);
+			target = DirectX::XMVectorAdd(pos, offset);
+		}
+
+		pickNextTargetEvent = EventManager->AddEvent([=]
+		{
+			PickNextTarget();
+			return 0;
+		}, name + wstring(L"pickNextTarget"), Random::RndDouble() * 2 + 2, 0, 0);
+	}
+
 	void Mob::Activity()
 	{
+		Move();
 		AnimationControl();
 	}
 
@@ -57,8 +87,14 @@ namespace game
 			sprite->SetFlipHorizontally(false);
 	}
 
+	void Mob::Behaviour()
+	{
+
+	}
+
 	Mob::~Mob()
 	{
 		EventManager->RemoveEvent(activityEvent);
+		EventManager->RemoveEvent(pickNextTargetEvent);
 	}
 }

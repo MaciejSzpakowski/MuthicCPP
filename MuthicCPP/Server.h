@@ -3,6 +3,7 @@
 #include "Mob.h"
 #include "Hero.h"
 #include "Map.h"
+#include "Player.h"
 
 namespace game
 {
@@ -15,8 +16,17 @@ namespace game
 	class Server
 	{
 	private:
+		Player* player;
 		map<MapType, Room> rooms;
+		vector<winsock::Client> clients;
+		winsock::Server server;
+		Event* netEvent;
+		Event* updatePlayerPosEvent;
+
+		void NetworkActivity();
 	public:
-		Server(const GlobalAssets& g);
+		Server(const GlobalAssets& g, Player* p);
+
+		~Server();
 	};
 }

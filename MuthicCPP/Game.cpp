@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "Player.h"
 #include "Server.h"
+#include "Client.h"
 
 namespace game
 {
@@ -42,24 +43,39 @@ namespace game
 		g.world = DrawManager->AddRenderTarget();
 	}
 
-	Server* StartServer(const GlobalAssets& g)
-	{
-		return new Server(g);
-	}
-
 	void InitAndRun(std::vector<std::string> args)
 	{
 		GlobalAssets g;
 		unique_ptr<Player> player;
 		unique_ptr<Server> server;
+		unique_ptr<Client> client;
 		
 		Core->OpenConsole();
 		GlobalEvents();
 		InitSingletons();
 		InitGlobals(g);
 
-		player = unique_ptr<Player>(Player::Deserialize(Path::From(L"save", L"Poteflon.hero").c_str(), g));
-		server = unique_ptr<Server>(StartServer(g));
+		EventManager->AddEvent([&]
+		{
+			if (InputManager->IsKeyPressed(Keys::Key1))
+			{
+				g.gameType = GameType::Server;
+				g.port = 10000;
+				player = unique_ptr<Player>(Player::Deserialize(Path::From(L"save", L"Poteflon.hero").c_str(), g));
+				server = unique_ptr<Server>(new Server(g,player.get()));
+				return 0;
+			}
+			else if (InputManager->IsKeyPressed(Keys::Key2))
+			{
+				g.gameType = GameType::Client;
+				g.port = 10000;
+				g.ip = "127.0.0.1";
+				player = unique_ptr<Player>(Player::Deserialize(Path::From(L"save", L"Poteflon.hero").c_str(), g));
+				client = unique_ptr<Client>(new Client(g,player.get()));
+				return 0;
+			}
+			return 1;
+		}, L"", 0, 0, 0);		
 
 		Core->Run();
 	}
