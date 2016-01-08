@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Server.h"
 #include "Client.h"
+#include "MainMenu.h"
 
 namespace game
 {
@@ -50,13 +51,25 @@ namespace game
 		unique_ptr<Server> server;
 		unique_ptr<Client> client;
 		
+		
 		Core->OpenConsole();
 		GlobalEvents();
 		InitSingletons();
 		InitGlobals(g);
+		
+		MainMenu mainMenu;
+		mainMenu.FirstMenu(g);
 
 		EventManager->AddEvent([&]
 		{
+			if (InputManager->IsKeyReleased(Keys::MouseLeft))
+				printf("Mouse left released\n");
+
+			if (InputManager->IsKeyDown(Keys::MouseLeft))
+			{
+				DebugManager->Debug(L"Mouse down", L"");
+			}
+
 			if (InputManager->IsKeyPressed(Keys::Key1))
 			{
 				g.gameType = GameType::Server;

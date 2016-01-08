@@ -163,6 +163,7 @@
     <ClInclude Include="Conf.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Path.h" />

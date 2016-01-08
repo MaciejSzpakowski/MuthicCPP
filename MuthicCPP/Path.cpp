@@ -11,7 +11,7 @@ namespace game
 
 	void Path::Init(wstring _root)
 	{
-		for (int i = _root.size() - 1; i >= 0; i--)
+		for (int i = (int)_root.size() - 1; i >= 0; i--)
 			if (_root[i] == L'\"')
 				_root.erase(_root.begin() + i);
 
@@ -27,6 +27,7 @@ namespace game
 		Get().paths[L"misc"] = makePath(Get().paths[L"data"],L"misc");
 		Get().paths[L"item"] = makePath(Get().paths[L"data"],L"item");
 		Get().paths[L"effect"] = makePath(Get().paths[L"data"],L"effect");
+		Get().paths[L"menu"] = makePath(Get().paths[L"data"], L"menu");
 	}
 
 	wstring Path::From(const wstring& dir, const wstring& file)
